@@ -32,8 +32,19 @@ function imageGenerator(){
   console.log(pic1);
   var pic2 = randomizer(itemsArr.length);
   console.log(pic2);
+
+  while(pic2 === pic1){
+    pic2 = randomizer(itemsArr.length);
+    console.log(pic2);
+  }
+
   var pic3 = randomizer(itemsArr.length);
   console.log(pic3);
+
+  while(pic3 === (pic1 || pic2)){
+    pic3 = randomizer(itemsArr.length);
+    console.log(pic2);
+  }
 
   imageOneEl.src = itemsArr[pic1].scr;
   imageOneEl.title = itemsArr[pic1].name;
@@ -59,12 +70,19 @@ new Item ('pen','./assets/pen.jpg');
 new Item ('pet-sweep','./assets/pet-sweep.jpg');
 new Item ('scissors','./assets/scissors.jpg');
 new Item ('shark','./assets/shark.jpg');
-new Item ('sweep','./assets/sweep.jpg');
+new Item ('sweep','./assets/sweep.png');
 new Item ('tauntaun','./assets/tauntaun.jpg');
 new Item ('unicorn','./assets/unicorn.jpg');
 new Item ('usb','./assets/usb.gif');
-new Item ('bag','./assets/watercan.jpg');
+new Item ('bag','./assets/water-can.jpg');
 new Item ('wine glass','./assets/wine-glass.jpg');
+
+// stop clicking function
+function stopClicking() {
+  divEl.removeEventListener('click', handleClick);
+  divEl.textContent = '';
+  console.log('done');
+}
 
 //create event handler
 function handleClick(event){
@@ -82,4 +100,9 @@ function handleClick(event){
   }
   imageGenerator();
 }
+
+divEl.addEventListener('click', handleClick);
+
+
+imageGenerator();
 
