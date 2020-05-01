@@ -1,0 +1,8 @@
+main{
+  margin-left: 100px;
+}
+#image1, #image2, #image3{
+  border: 2px solid black; 
+  max-width: 500px;
+  padding: 20px;
+}
