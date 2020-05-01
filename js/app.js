@@ -12,9 +12,9 @@ var divEl = document.getElementById('items-container');
 var clickTracker = 25;
 
 //constructor function
-function Item (name, scr){
+function Item (name, src){
   this.name = name;
-  this.scr = scr;
+  this.src = src;
   this.clicked = 0;
   this.shown = 0;
 
@@ -26,39 +26,169 @@ function randomizer(max){
   return Math.floor(Math.random()*max);
 }
 
-//function that picks three numbers and randomly generate
-
+var noDuplicates = [];
 function imageGenerator(){
   var pic1 = randomizer(itemsArr.length);
-  // console.log(pic1);
-  var pic2 = randomizer(itemsArr.length);
-  // console.log(pic2);
-
-  while(pic2 === pic1){
-    pic2 = randomizer(itemsArr.length);
-    // console.log(pic2);
+  while((pic1 === noDuplicates[0]) || (pic1 === noDuplicates[1]) || (pic1 === noDuplicates[2])){
+    pic1 = randomizer(itemsArr.length);
   }
+  console.log(pic1);
+  var pic2 = randomizer(itemsArr.length);
+  while((pic2 === noDuplicates[0]) || (pic1 === pic2) || (pic2 === noDuplicates[1]) || (pic2 === noDuplicates[2])){
+    pic2 = randomizer(itemsArr.length);
+  }
+  console.log(pic2);
 
   var pic3 = randomizer(itemsArr.length);
-  // console.log(pic3);
-
-  while(pic3 === (pic1 || pic2)){
+  while((pic3 === pic1) || (pic3 === pic2) || (pic3 === noDuplicates[0]) || (pic3 === noDuplicates[1]) ||(pic3 === noDuplicates[2])){
     pic3 = randomizer(itemsArr.length);
-    // console.log(pic2);
   }
+  console.log(pic3);
 
-  imageOneEl.src = itemsArr[pic1].scr;
+  noDuplicates = [pic1,pic2,pic3];
+
+  imageOneEl.src = itemsArr[pic1].src;
   imageOneEl.title = itemsArr[pic1].name;
   itemsArr[pic1].shown++;
 
-  imageTwoEl.src = itemsArr[pic2].scr;
+  imageTwoEl.src = itemsArr[pic2].src;
   imageTwoEl.title = itemsArr[pic2].name;
   itemsArr[pic2].shown++;
 
-  imageThreeEl.src = itemsArr[pic3].scr;
+  imageThreeEl.src = itemsArr[pic3].src;
   imageThreeEl.title = itemsArr[pic3].name;
   itemsArr[pic3].shown++;
 }
+function seedChartData(){
+  var clickArray = [];
+  var labelArray = [];
+  var viewedArray = [];
+
+  for (var i=0; i < itemsArr.length; i++){
+    clickArray.push(itemsArr[i].clicked);
+    labelArray.push(itemsArr[i].name);
+    viewedArray.push(itemsArr[i].shown);
+  }
+  return [clickArray, labelArray, viewedArray];
+}
+function renderChart(){
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: seedChartData()[1],
+      datasets: [{
+        label: '# of Votes',
+        data: seedChartData()[0],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# of Views',
+        data: seedChartData()[2],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+        ],
+        borderWidth: 1
+      }]
+    },
+
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
 
 new Item ('bag','./assets/bag.jpg');
 new Item ('banana','./assets/banana.jpg');
@@ -80,6 +210,11 @@ new Item ('unicorn','./assets/unicorn.jpg');
 new Item ('usb','./assets/usb.gif');
 new Item ('water can','./assets/water-can.jpg');
 new Item ('wine glass','./assets/wine-glass.jpg');
+
+//function that picks three numbers and randomly generate
+
+
+
 
 //parent element for list of final report
 var pEl = document.getElementById('finalReport');
@@ -112,6 +247,7 @@ function handleClick(event){
   if(clickTracker === 0){
     stopClicking();
     finalReport();
+    renderChart();
   }
   else{
     imageGenerator();
