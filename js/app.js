@@ -12,11 +12,11 @@ var divEl = document.getElementById('items-container');
 var clickTracker = 5;
 
 //constructor function
-function Item (name, src){
+function Item (name, src, clicked = 0,shown = 0){
   this.name = name;
   this.src = src;
-  this.clicked = 0;
-  this.shown = 0;
+  this.clicked = clicked;
+  this.shown = shown;
 
   itemsArr.push(this);
 }
@@ -30,6 +30,39 @@ function randomizer(max){
 function saveLocalStorage(){
   var savedItems = JSON.stringify(itemsArr);
   localStorage.setItem('allItems', savedItems);
+}
+
+//load up local storage
+function loadLocalStorage(){
+  if(localStorage.getItem('allItems')){
+    var localStorageItems = JSON.parse(localStorage.getItem('allItems'));
+    for (var i = 0; i < localStorageItems.length; i++){
+      new Item (localStorageItems[i].name, localStorageItems[i].src,localStorageItems[i].clicked, localStorageItems[i].shown);
+    }
+  }
+  else{
+    new Item ('bag','./assets/bag.jpg');
+    new Item ('banana','./assets/banana.jpg');
+    new Item ('bathroom','./assets/bathroom.jpg');
+    new Item ('boots','./assets/boots.jpg');
+    new Item ('breakfast','./assets/breakfast.jpg');
+    new Item ('bubblegum','./assets/bubblegum.jpg');
+    new Item ('chair','./assets/chair.jpg');
+    new Item ('cthulhu','./assets/cthulhu.jpg');
+    new Item ('dog-duck','./assets/dog-duck.jpg');
+    new Item ('dragon','./assets/dragon.jpg');
+    new Item ('pen','./assets/pen.jpg');
+    new Item ('pet-sweep','./assets/pet-sweep.jpg');
+    new Item ('scissors','./assets/scissors.jpg');
+    new Item ('shark','./assets/shark.jpg');
+    new Item ('sweep','./assets/sweep.png');
+    new Item ('tauntaun','./assets/tauntaun.jpg');
+    new Item ('unicorn','./assets/unicorn.jpg');
+    new Item ('usb','./assets/usb.gif');
+    new Item ('water can','./assets/water-can.jpg');
+    new Item ('wine glass','./assets/wine-glass.jpg');
+  }
+  imageGenerator();
 }
 //Keeps track of last 3 images seen
 var noDuplicates = [];
@@ -197,33 +230,6 @@ function renderChart(){
   });
 }
 
-
-new Item ('bag','./assets/bag.jpg');
-new Item ('banana','./assets/banana.jpg');
-new Item ('bathroom','./assets/bathroom.jpg');
-new Item ('boots','./assets/boots.jpg');
-new Item ('breakfast','./assets/breakfast.jpg');
-new Item ('bubblegum','./assets/bubblegum.jpg');
-new Item ('chair','./assets/chair.jpg');
-new Item ('cthulhu','./assets/cthulhu.jpg');
-new Item ('dog-duck','./assets/dog-duck.jpg');
-new Item ('dragon','./assets/dragon.jpg');
-new Item ('pen','./assets/pen.jpg');
-new Item ('pet-sweep','./assets/pet-sweep.jpg');
-new Item ('scissors','./assets/scissors.jpg');
-new Item ('shark','./assets/shark.jpg');
-new Item ('sweep','./assets/sweep.png');
-new Item ('tauntaun','./assets/tauntaun.jpg');
-new Item ('unicorn','./assets/unicorn.jpg');
-new Item ('usb','./assets/usb.gif');
-new Item ('water can','./assets/water-can.jpg');
-new Item ('wine glass','./assets/wine-glass.jpg');
-
-//function that picks three numbers and randomly generate
-
-
-
-
 //parent element for list of final report
 var pEl = document.getElementById('finalReport');
 
@@ -254,7 +260,7 @@ function handleClick(event){
   clickTracker--;
   if(clickTracker === 0){
     stopClicking();
-    finalReport();
+    // finalReport();
     saveLocalStorage();
     renderChart();
   }
@@ -266,4 +272,4 @@ function handleClick(event){
 divEl.addEventListener('click', handleClick);
 
 
-imageGenerator();
+loadLocalStorage();
