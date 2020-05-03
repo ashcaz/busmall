@@ -9,7 +9,7 @@ var imageThreeEl = document.getElementById('image3');
 var divEl = document.getElementById('items-container');
 
 //Only allow 5 rounds of clciking
-var clickTracker = 25;
+var clickTracker = 5;
 
 //constructor function
 function Item (name, src){
@@ -26,7 +26,15 @@ function randomizer(max){
   return Math.floor(Math.random()*max);
 }
 
+//save to local storage
+function saveLocalStorage(){
+  var savedItems = JSON.stringify(itemsArr);
+  localStorage.setItem('allItems', savedItems);
+}
+//Keeps track of last 3 images seen
 var noDuplicates = [];
+
+//function used to generate the images seen on the screen
 function imageGenerator(){
   var pic1 = randomizer(itemsArr.length);
   while((pic1 === noDuplicates[0]) || (pic1 === noDuplicates[1]) || (pic1 === noDuplicates[2])){
@@ -247,6 +255,7 @@ function handleClick(event){
   if(clickTracker === 0){
     stopClicking();
     finalReport();
+    saveLocalStorage();
     renderChart();
   }
   else{
