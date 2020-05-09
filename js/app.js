@@ -73,18 +73,17 @@ function imageGenerator(){
   while((pic1 === noDuplicates[0]) || (pic1 === noDuplicates[1]) || (pic1 === noDuplicates[2])){
     pic1 = randomizer(itemsArr.length);
   }
-  console.log(pic1);
+
   var pic2 = randomizer(itemsArr.length);
   while((pic2 === noDuplicates[0]) || (pic1 === pic2) || (pic2 === noDuplicates[1]) || (pic2 === noDuplicates[2])){
     pic2 = randomizer(itemsArr.length);
   }
-  console.log(pic2);
 
   var pic3 = randomizer(itemsArr.length);
   while((pic3 === pic1) || (pic3 === pic2) || (pic3 === noDuplicates[0]) || (pic3 === noDuplicates[1]) ||(pic3 === noDuplicates[2])){
     pic3 = randomizer(itemsArr.length);
   }
-  console.log(pic3);
+
 
   noDuplicates = [pic1,pic2,pic3];
 
