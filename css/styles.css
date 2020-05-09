@@ -1,8 +1,25 @@
+body{
+  background-color: cadetblue;
+}
 main{
   margin-left: 100px;
 }
+h1{
+  display: inline;
+  font-size: 4em;
+  margin-left: 300px;
+}
 #image1, #image2, #image3{
   border: 2px solid black; 
-  max-width: 500px;
+  max-width: 300px;
   padding: 20px;
+  margin-top: 100px;
+  margin-left: 0px;
+}
+ul{
+  float: left;
+  padding: 10px;
+}
+canvas{
+  display: inline;
 }
