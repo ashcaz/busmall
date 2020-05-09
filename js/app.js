@@ -9,7 +9,7 @@ var imageThreeEl = document.getElementById('image3');
 var divEl = document.getElementById('items-container');
 
 //Only allow 5 rounds of clciking
-var clickTracker = 5;
+var clickTracker = 25;
 
 //constructor function
 function Item (name, src, clicked = 0,shown = 0){
@@ -41,26 +41,26 @@ function loadLocalStorage(){
     }
   }
   else{
-    new Item ('bag','./assets/bag.jpg');
-    new Item ('banana','./assets/banana.jpg');
-    new Item ('bathroom','./assets/bathroom.jpg');
-    new Item ('boots','./assets/boots.jpg');
-    new Item ('breakfast','./assets/breakfast.jpg');
-    new Item ('bubblegum','./assets/bubblegum.jpg');
-    new Item ('chair','./assets/chair.jpg');
-    new Item ('cthulhu','./assets/cthulhu.jpg');
-    new Item ('dog-duck','./assets/dog-duck.jpg');
-    new Item ('dragon','./assets/dragon.jpg');
-    new Item ('pen','./assets/pen.jpg');
-    new Item ('pet-sweep','./assets/pet-sweep.jpg');
-    new Item ('scissors','./assets/scissors.jpg');
-    new Item ('shark','./assets/shark.jpg');
-    new Item ('sweep','./assets/sweep.png');
-    new Item ('tauntaun','./assets/tauntaun.jpg');
-    new Item ('unicorn','./assets/unicorn.jpg');
-    new Item ('usb','./assets/usb.gif');
-    new Item ('water can','./assets/water-can.jpg');
-    new Item ('wine glass','./assets/wine-glass.jpg');
+    new Item ('Bag','./assets/bag.jpg');
+    new Item ('Banana','./assets/banana.jpg');
+    new Item ('Bathroom','./assets/bathroom.jpg');
+    new Item ('Boots','./assets/boots.jpg');
+    new Item ('Breakfast','./assets/breakfast.jpg');
+    new Item ('Bubblegum','./assets/bubblegum.jpg');
+    new Item ('Chair','./assets/chair.jpg');
+    new Item ('Cthulhu','./assets/cthulhu.jpg');
+    new Item ('Dog-duck','./assets/dog-duck.jpg');
+    new Item ('Dragon','./assets/dragon.jpg');
+    new Item ('Pen','./assets/pen.jpg');
+    new Item ('Pet-sweep','./assets/pet-sweep.jpg');
+    new Item ('Scissors','./assets/scissors.jpg');
+    new Item ('Shark','./assets/shark.jpg');
+    new Item ('Sweep','./assets/sweep.png');
+    new Item ('Tauntaun','./assets/tauntaun.jpg');
+    new Item ('Unicorn','./assets/unicorn.jpg');
+    new Item ('Usb','./assets/usb.gif');
+    new Item ('Water can','./assets/water-can.jpg');
+    new Item ('Wine glass','./assets/wine-glass.jpg');
   }
   imageGenerator();
 }
@@ -237,7 +237,7 @@ var pEl = document.getElementById('finalReport');
 function finalReport(){
   for(var i = 0; i < itemsArr.length; i++){
     var newEl = document.createElement('li');
-    newEl.textContent = `${itemsArr[i].name} had ${itemsArr[i].clicked} votes and was shown ${itemsArr[i].shown} times.`;
+    newEl.textContent = `${itemsArr[i].name}: ${itemsArr[i].clicked} votes`;
     pEl.appendChild(newEl);
   }
 }
@@ -260,7 +260,7 @@ function handleClick(event){
   clickTracker--;
   if(clickTracker === 0){
     stopClicking();
-    // finalReport();
+    finalReport();
     saveLocalStorage();
     renderChart();
   }
